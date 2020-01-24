@@ -1,3 +1,6 @@
 {
-  "code-runner.defaultLanguage": "kotlin"
+  "code-runner.defaultLanguage": "kotlin",
+  "editor.fontFamily": "Input Mono",
+  "editor.detectIndentation": false,
+  "code-runner.enableAppInsights": false
 }
