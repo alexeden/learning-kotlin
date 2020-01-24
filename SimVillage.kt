@@ -4,8 +4,6 @@
  */
 
 fun main(args: Array<String>) {
-  print("HI!")
-
   println({
     val currentYear = 2020
     "Welcome to SimVillage, Mayor! ©$currentYear"
