@@ -14,7 +14,7 @@ val randPopulation = { (1..40).shuffled().last().times(1000) }
 
 typealias Greeter = (String, Int) -> String
 
-fun runSimulation(name: String, greet: Greeter) {
+inline fun runSimulation(name: String, greet: Greeter) {
   // val population = (1..40).shuffled().last() * 1000;
   println(greet(name, randPopulation()))
 }
