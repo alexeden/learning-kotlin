@@ -3,8 +3,9 @@
 - A function that returns nothing is implicitly returning the `Unit` type
 - A function that never returns at all is implicitly returning the `Nothing` type (e.g. the `TODO()` function)
 - Anonymous functions do not require, nor allow, the `return` keyword to output data; the last line of the function body is implicitly the return value
+- All exceptions in Kotlin are _unchecked_; that is, you're not forced to guard against exceptions, which has the side-effect of doing away with the issue of error swallowing
 
-# Terminology
+# Concepts
 
 ## Single-Expression Functions
 
