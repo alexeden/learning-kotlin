@@ -2,19 +2,30 @@
 // SimVillage
 
 fun main(args: Array<String>) {
-  println(args)
+  val greeter = createGreeter("Kansas City")
+  runSimulation(greeter)
   // Lambda shorthand
-  runSimulation("Alex") { name, population ->
-    val currentYear = 2020
-    "Welcome to SimVillage, population $population, $name! © $currentYear"
+  // runSimulation("Alex", rand) { name, population ->
+  //   val currentYear = 2020
+  //   "Welcome to SimVillage, population $population, $name! © $currentYear"
+  // }
+}
+
+fun createGreeter(city: String): (String) -> String {
+  val currentYear = 2020
+  val population = rand(1, 40).times(1000);
+
+  return { mayorName ->
+    "Welcome to $city, population $population, $mayorName! © $currentYear"
   }
 }
 
-val randPopulation = { (1..40).shuffled().last().times(1000) }
+val rand = { min: Int?, max: Int? -> ((min ?: 0) .. (max ?: 1)).shuffled().last() }
 
-typealias Greeter = (String, Int) -> String
+typealias Greeter = (String) -> String
 
-inline fun runSimulation(name: String, greet: Greeter) {
+inline fun runSimulation(greet: Greeter) {
   // val population = (1..40).shuffled().last() * 1000;
-  println(greet(name, randPopulation()))
+  // println(greet(name, randomizer(1, 40)))
+  println(greet("Alex Eden"))
 }
