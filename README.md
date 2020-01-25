@@ -74,9 +74,39 @@ Formally, the non-null assertion operator. Only use in very special cases where 
 
 ### `?:` Elvis Operator
 
-Formally, the null coalescing operator.
+Formally, the null coalescing operator. In short, if the expression to the left of the operator evaluates to null, evaluate the thing on the right side.
+
+```kotlin
+// Read username from stdin or use noname if none provided
+val name = readLine()?.let { it.capitalize() } ?: "noname"
+println("Your name is: $name");
+```
+
+### Standard Precondition Functions
+
+`checkNotNull`
+
+If argument value is `null`, throws `IllegalStateException`.
+Otherwise return non-null value.
+
+`require`
+
+If argument value is `false`, throws `IllegalArgumentException`.
+
+`requireNotNull`
+
+If argument value is `null`, throws `IllegalArgumentException`.
+Otherwise return non-null value.
 
 
+`error`
+
+If argument value is `null`, throws `IllegalArgumentException` with second argument as the provided message.
+Otherwise return non-null value.
+
+`assert`
+
+If argument value is `false` _and_ the assertion compiler flag is enabled, throws `AssertionError`.
 
 # Tidbits
 
