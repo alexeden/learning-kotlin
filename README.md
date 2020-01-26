@@ -15,6 +15,7 @@
 - Use initializer `init` blocks for property assertion logic; an `init` block will be called when a class is instantiated, regardless of which constructor is used
 - Frequent use of `isInitialized` is a code smell; consider using nullable types instead
 - Any class can be made destructurable by adding component operator functions; using a data class will implement destructuring automatically
+- If you override the `equals` operator, you should also override `hashCode`
 
 # Concepts
 
@@ -267,6 +268,31 @@ Data classes provide major advantages over regular classes: they provide default
 Although these don't really seem like limitation from an FP perspective...
 
 ## Enumerated Classes
+
+Enums are a special type of class for defining a collection of constants called _enumerated types._
+
+Enum values can be accessed as a stringed key using `EnumName.valueOf(str)`.
+
+## Sealed Classes
+
+`sealed` classes allow implementation of more complex ADTs, enabling more control over the specific subtypes than a regular enum provides.
+
+
+```kotlin
+sealed class Flight {
+  object  Arrived : Flight()
+  object  Departing : Flight()
+  class   EnRoute(val distance: Int) : Flight()
+}
+
+fun printFlightStatus(flight: Flight) {
+  when (flight) {
+    is Flight.Arrived -> println("Flight has arrived at its destination")
+    is Flight.Departing -> println("Flight is preparing to leave")
+    is Flight.EnRoute -> println("Flight has traveled ${flight.distance} miles")
+  }
+}
+```
 
 
 
