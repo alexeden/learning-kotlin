@@ -8,6 +8,8 @@
 - All numeric types in Kotlin are _signed_
 - A `receiver` is the subject of an extension function
 - _Relative scoping_ is a behavior wherein function calls in a scope are called relative to the scopes receiver (see `apply`)
+- A `List`'s immutability is not enforced; it's possible to cast `List` to a `MutableList` and mutate it
+- `to` is a `Pair` constructor function; it's a special type of function that allows you to drop the dot and the parenthesis around its arguments; `"x" to "y" //=> (x, y) Pair<String, String>`
 
 # Concepts
 
