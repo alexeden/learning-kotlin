@@ -14,6 +14,7 @@
 - Class properties with custom getters and setters cannot be declared in constructor parameters
 - Use initializer `init` blocks for property assertion logic; an `init` block will be called when a class is instantiated, regardless of which constructor is used
 - Frequent use of `isInitialized` is a code smell; consider using nullable types instead
+- Any class can be made destructurable by adding component operator functions; using a data class will implement destructuring automatically
 
 # Concepts
 
@@ -254,6 +255,19 @@ Initialized in one of two cases:
 2. When a companion's object's property or function is accessed directly
 
 ## Data Classes
+
+Data classes provide major advantages over regular classes: they provide default implementations for structural equality checking, as well as instance copying; they allow destructuring declarations.
+
+### Limitations
+
+1. Data classes must have a primary constructor with at least one parameter
+2. Primary constructor parameters must be marked `val` or `var`
+3. Cannot be `abstract`, `open`, `sealed`, or `inner`
+
+Although these don't really seem like limitation from an FP perspective...
+
+## Enumerated Classes
+
 
 
 # Tidbits
