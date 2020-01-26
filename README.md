@@ -223,6 +223,37 @@ class RandomCity {
 }
 ```
 
+## Objects
+
+Do no have constructors. Instantiated automatically on first use. Use `init` block for initialization logic.
+
+There are 3 ways to use `object` singletons.
+
+### 1. Object Declarations
+
+Useful for organization and state management.
+
+Private classes can be nested in objects.
+
+### 2. Object expressions
+
+Used when you need a class instance that is a variation of an existing class and will be used for a one-off purpose.
+
+Not sure yet how these are useful...
+
+### 3. Companion objects
+
+Ties the initialization of an object to a class instance. Declared within another class declaration using the `companion` modifier.
+
+Classes cannot have more than one companion object.
+
+Useful when you need a place for singleton data that has a contextual connection to a class definition.
+
+Initialized in one of two cases:
+1. When a companion's object enclosing class is initialized
+2. When a companion's object's property or function is accessed directly
+
+## Data Classes
 
 
 # Tidbits
