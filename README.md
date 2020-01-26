@@ -182,6 +182,13 @@ val fileContents = File("file.txt")
 
 Complement of `takeIf`.
 
+## Collections
+
+Use `getOrElse` or `getOrNull` for safe index access.
+`getOrElse`'s second argument is a lambda that returns a default value.
+
+
+
 # Tidbits
 
 File-level functions in Kotlin are represented in Kotlin as static methods on a class with a name based on the file in which they are declared.
