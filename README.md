@@ -4,6 +4,10 @@
 - A function that never returns at all is implicitly returning the `Nothing` type (e.g. the `TODO()` function)
 - Anonymous functions do not require, nor allow, the `return` keyword to output data; the last line of the function body is implicitly the return value
 - All exceptions in Kotlin are _unchecked_; that is, you're not forced to guard against exceptions, which has the side-effect of doing away with the issue of error swallowing
+- `==` is the structural equality operator; `===` is the referential equality operator, which checks if the operands are pointing to the same object instance memory on the heap
+- All numeric types in Kotlin are _signed_
+- A `receiver` is the subject of an extension function
+- _Relative scoping_ is a behavior wherein function calls in a scope are called relative to the scopes receiver (see `apply`)
 
 # Concepts
 
@@ -99,7 +103,6 @@ If argument value is `false`, throws `IllegalArgumentException`.
 If argument value is `null`, throws `IllegalArgumentException`.
 Otherwise return non-null value.
 
-
 `error`
 
 If argument value is `null`, throws `IllegalArgumentException` with second argument as the provided message.
@@ -108,6 +111,76 @@ Otherwise return non-null value.
 `assert`
 
 If argument value is `false` _and_ the assertion compiler flag is enabled, throws `AssertionError`.
+
+## Standard Extension Functions
+
+`apply`
+
+"Configuration function". Allows you to call a series of functions on a receiver to configure it for use. `apply` scopes each function call within the lambda to the receiver it is called on. (relative scoping)
+
+Passes nothing to the lambda. (no receiver `it`)
+Returns the receiver.
+
+```kotlin
+val menuFile = File("menu-file.txt").apply {
+  setReadable(true) // Implicitly: menuFile.setReadable(true)
+  setWritable(true)
+  setExecutable(false)
+}
+```
+
+`let`
+
+Passes the receiver to the lambda.
+Returns the value of the evaluated lambda expression(s).
+
+`run`
+
+"Pipe". Nearly the same as `apply`, but it does not return the receiver; rather it returns the evaluated lambda.
+
+`with`
+
+Identical to `run`, but different calling convention. For stylistic reasons, don't use it.
+
+`also`
+
+"Tap". Nearly the same as `let`, except that it returns the receiver, rather than the evaluated lambda.
+
+Usage: Performing multiple side effects from a common source.
+
+```kotlin
+var fileLines: List<String>
+File("file.txt")
+  .also { print(it.name) }
+  .also { fileLines = it.readLines() }
+```
+
+`takeIf`
+
+Sorta similar to `let`. Provided with a _predicate_ lambda, it'll return the receiver if the predicate evaluates to true, `null` otherwise.
+
+Usage: It's similar to a regular `if` statement, except that it can usually avoid the creation of a temporary variable.
+
+```kotlin
+// Read a file if and only if it's readable
+
+// Verbose
+val file = File("file.txt")
+val fileContents = if (file.canRead() && file.canWrite()) {
+  file.readText()
+} else {
+  null
+}
+
+// With `takeIf`
+val fileContents = File("file.txt")
+  .takeIf { it.canRead() && it.canWrite() }
+  ?.readText()
+```
+
+`takeUnless`
+
+Complement of `takeIf`.
 
 # Tidbits
 
