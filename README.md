@@ -10,6 +10,10 @@
 - _Relative scoping_ is a behavior wherein function calls in a scope are called relative to the scopes receiver (see `apply`)
 - A `List`'s immutability is not enforced; it's possible to cast `List` to a `MutableList` and mutate it
 - `to` is a `Pair` constructor function; it's a special type of function that allows you to drop the dot and the parenthesis around its arguments; `"x" to "y" //=> (x, y) Pair<String, String>`
+- The `field` keyword is similar to `it`, in that it represents the backing field for a class property referenced in getters/setters
+- Class properties with custom getters and setters cannot be declared in constructor parameters
+- Use initializer `init` blocks for property assertion logic; an `init` block will be called when a class is instantiated, regardless of which constructor is used
+- Frequent use of `isInitialized` is a code smell; consider using nullable types instead
 
 # Concepts
 
@@ -188,6 +192,36 @@ Complement of `takeIf`.
 
 Use `getOrElse` or `getOrNull` for safe index access.
 `getOrElse`'s second argument is a lambda that returns a default value.
+
+
+## Initialization Order
+
+Initialization of a class instance's properties happens in the following order:
+
+1. Primary constructor's inline properties
+2. Required class-level property assignments in the class body
+3. `init` block property assignments and function calls
+4. Secondary constructor property assignments and function calls
+
+## Lazy Initialization
+
+Lazy initialization is implemented using a mechanism called a _delegate_, which define templates for how a property is initialized. It takes a lambda in which you define code that's executed when the property is initialized.
+
+Delegates use the `by` keyword. `lazy` is the delegate used for lazy initialization.
+
+A lazy property remains uninitialized until it's referenced for the first time. _Initialization code is executed only once._ Future access uses a cached result.
+
+```kotlin
+class RandomCity {
+  val name by lazy { selectRandomCity() }
+
+  private fun selectRandomCity() = File("cities.txt")
+    .readText()
+    .split("\n")
+    .shuffled()
+    .first()
+}
+```
 
 
 
