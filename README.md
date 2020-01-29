@@ -16,6 +16,8 @@
 - Frequent use of `isInitialized` is a code smell; consider using nullable types instead
 - Any class can be made destructurable by adding component operator functions; using a data class will implement destructuring automatically
 - If you override the `equals` operator, you should also override `hashCode`
+- Extensions used by multiple files should be stored in their own project package; the convention for file naming is typically the type the extension applies to, plus `Ext.kt`, e.g. `extensions/IterableExt.kt`
+- Standard library files that contain extensions to a type are often named `<the type>s.kt`, e.g. `Strings.kt`
 
 # Concepts
 
@@ -294,7 +296,45 @@ fun printFlightStatus(flight: Flight) {
 }
 ```
 
+## Generics
 
+`vararg` causes a type variable to be treated as an `Array`
+
+The following parameter definitions are equivalent:
+
+```kotlin
+fun main(args: Array<String>)
+fun main(varargs args: String)
+```
+
+### Variance
+
+A generic type variable can have one of two roles: _producer_ or _consumer_.
+
+- `out`: producer, covariant, readable, not writable
+- `in`: consumer, contravariant, writable, not readable
+
+### Reification
+
+Type variables are subject to what the Kotlin compiler calls _type erasure._ Type information for a type variable is not available at runtime, making an expression like `x is T` impossible to evaluate.
+
+However, Kotlin provides the `reified` keyword, which allows the retainment of type information at runtime, without requiring reflection (learning the name or a type of property or function at runtime).
+
+
+### Generic Function Receivers
+
+Relative scoping of a generic lambda is achieved using the `T.()` expression.
+
+To clarify, this is the definition of the relatively-scoped `.apply` function:
+
+```kotlin
+public inline fun <T> T.apply(block: T.() -> Unit): T {
+  block()
+  return this
+}
+```
+
+This style of function literals with receivers enables the use of _domain-specific languages._
 
 # Tidbits
 
