@@ -336,6 +336,31 @@ public inline fun <T> T.apply(block: T.() -> Unit): T {
 
 This style of function literals with receivers enables the use of _domain-specific languages._
 
+## Sequences
+
+`Sequences` are Kotlin's built-in lazy collection type. Sequences do not index their own contents, nor do they track their own size (which is technically infinite).
+
+Sequences are created using `generateSequence`, which accepts a seed value and an _iterator function._
+
+The below code uses an extension function of `Int` and a sequence to get the first 1000 prime numbers.
+
+```kotlin
+inline fun Int.isPrime(): Boolean {
+  (2 until this).map {
+    if (this % it == 0) {
+      return false
+    }
+  }
+  return true
+}
+
+val firstKPrimes = generateSequence(3) { it + 1 }
+  .filter { it.isPrime() }
+  .take(1000)
+```
+
+Lists can be converted to sequences using `.asSequence()`.
+
 # Tidbits
 
 File-level functions in Kotlin are represented in Kotlin as static methods on a class with a name based on the file in which they are declared.
