@@ -19,6 +19,21 @@
 - Extensions used by multiple files should be stored in their own project package; the convention for file naming is typically the type the extension applies to, plus `Ext.kt`, e.g. `extensions/IterableExt.kt`
 - Standard library files that contain extensions to a type are often named `<the type>s.kt`, e.g. `Strings.kt`
 
+# Idioms
+
+### Using `let` with the Elvis operator
+
+```kotlin
+fun processNullableString(str: String?) =
+  str?.let {
+    when {
+      it.isEmpty() -> "Empty"
+      it.isBlank() -> "Blank"
+      else -> str.capitalize()
+    }
+  } ?: "Null"
+```
+
 # Concepts
 
 ## Single-Expression Functions
@@ -122,7 +137,7 @@ Otherwise return non-null value.
 
 If argument value is `false` _and_ the assertion compiler flag is enabled, throws `AssertionError`.
 
-## Standard Extension Functions
+## Standard Extension (Scope) Functions
 
 `apply`
 
