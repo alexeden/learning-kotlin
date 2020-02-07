@@ -34,6 +34,10 @@ fun processNullableString(str: String?) =
   } ?: "Null"
 ```
 
+### Combining a single class (`object`), a factory method, and a private implementation class
+
+(See `Delegates`)
+
 # Concepts
 
 ## Single-Expression Functions
@@ -73,6 +77,8 @@ A lambda is represented on the JVM as a memory-allocated object instance, as are
 To use it, mark a function that accepts a lambda using the inline keyword.
 
 If a function accepts lambdas as any arguments, mark it as `inline`. In only a few instances is it not possible. e.g. in a recursive funciton that accepts a lambda, since the result of inlining a fucntion would be an infinite loop of copying and pasting function bodies. But, in such cases, the compiler will let you know if it won't work.
+
+When an `inline` function is passed a lambda as a parameter that needs to be executed from another context, such as a local object or nested function, the `crossinline` modifier must be used.
 
 ## Function References
 

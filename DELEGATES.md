@@ -56,3 +56,11 @@ It's a phone! Note that the contained objects themselves, `phone` and `camera`, 
 ## Property Delegates
 
 > On a class property, the `by` keyword means that the property's getter and setter are implemented by a different object, called a *delegate.*
+
+Most property delegates implement one of several property interfaces, depending on the desired behavior: `ReadWriteProperty`, `ReadOnlyProperty`, `ObservableProperty`, etc.
+
+Commonly used built-in delegates: `lazy`, `notNull`, `observable`, `vetoable`.
+
+
+
+### TODO: Add example of delegating to a `Map`
