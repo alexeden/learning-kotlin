@@ -18,6 +18,7 @@
 - If you override the `equals` operator, you should also override `hashCode`
 - Extensions used by multiple files should be stored in their own project package; the convention for file naming is typically the type the extension applies to, plus `Ext.kt`, e.g. `extensions/IterableExt.kt`
 - Standard library files that contain extensions to a type are often named `<the type>s.kt`, e.g. `Strings.kt`
+- You can use `::class` to get the Kotlin class of literally any value; use `::class.java` or `.javaClass` to get the underlying Java class
 
 # Idioms
 
